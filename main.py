@@ -1,8 +1,9 @@
 from tkinter import *
-from ui import Application
+from ui import Menu, WindowManager
+from util import debug, info
 
 
-class Window:
+class Application:
 
     def __init__(self):
         self.root = Tk()
@@ -11,17 +12,23 @@ class Window:
         self.root.geometry('1280x720')
         self.root.focus_force()
 
-        self.menu = Application(self.root)
+        self.menu = Menu(self)
+        self.window_manager = WindowManager(self.root)
 
     def update(self):
         self.root.update()
         self.root.update_idletasks()
 
-        # self.menu.update()
-        # self.canvas.update()
+        self.menu.update()
+        self.window_manager.update()
+
+    def display(self, content):
+        debug(f"Display: {content} window")
+        self.window_manager.set(content)
 
 
 if __name__ == '__main__':
-    window = Window()
+    info("Starting Application.")
+    window = Application()
     while True:
         window.update()
