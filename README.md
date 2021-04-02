@@ -1,3 +1,3 @@
-# The-Storehouse
+# The Storehouse
 
-A basic NAS GUI
+A basic NAS GUI by whuybrec
