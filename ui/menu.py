@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.font import Font
 
-TABS = ["/ Start", "/ Explorer", "/ Backup", "/ Torrent"]
+TABS = ["/ Start", "/ Explorer"] #, "/ Backup", "/ Torrent"]
 
 BACKGROUND = "#000000"
 FOREGROUND_A = "#FFFFFF"
@@ -11,9 +11,8 @@ FOREGROUND_P = "#7F7F7F"
 class Menu:
     def __init__(self, application):
         self.app = application
-        self.root = application.root
         self.tabs = []
-        self.frame = LabelFrame(self.root, bd=0, height=50, width=1280, bg=BACKGROUND).pack(side=TOP)
+        self.frame = LabelFrame(self.app.root, bd=0, height=50, width=1280, bg=BACKGROUND)
 
         self.font = Font(family="Google Sans", size=25, weight="normal")
 
@@ -25,37 +24,41 @@ class Menu:
             fg=FOREGROUND_A,
             font=self.font,
         )
-        self.lbl_app_name.place(anchor="e", x=1280, y=25)
 
-        x = 15
-        for i in range(len(TABS)):
-            if i == 0:
-                lbl = Label(self.frame, text=TABS[i], bg=BACKGROUND, fg=FOREGROUND_A, font=self.font)
-            else:
-                lbl = Label(self.frame, text=TABS[i], bg=BACKGROUND, fg=FOREGROUND_P, font=self.font)
-            lbl.bind("<Button-1>", self.on_lbl_click)
-            lbl.place(anchor="w", x=x, y=25)
-            lbl.update()
+        for tab in TABS:
+            lbl = Label(
+                master=self.frame,
+                text=tab,
+                bg=BACKGROUND,
+                font=self.font,
+                padx=5
+            )
+            lbl.bind("<Button-1>", self.on_menu_click)
             self.tabs.append(lbl)
-            x = lbl.winfo_x() + lbl.winfo_width() + 8
 
-    def update(self):
-        x = 15
+        self.active_tab = self.tabs[0]
+
+    def show(self):
+        self.frame.pack(side=TOP)
+        self.frame.pack_propagate(0)
+
+        self.lbl_app_name.pack(side=RIGHT)
+
         for i in range(len(self.tabs)):
             lbl = self.tabs[i]
             if i == 0:
                 lbl.config(fg=FOREGROUND_A)
+                lbl.pack(side=LEFT, padx=(10,0))
             else:
                 lbl.config(fg=FOREGROUND_P)
-            lbl.place(anchor="w", x=x, y=25)
-            lbl.update()
-            x = lbl.winfo_x() + lbl.winfo_width() + 8
+                lbl.pack(side=LEFT)
 
-    def on_lbl_click(self, event):
-        if event.widget == self.tabs[0]:
+    def on_menu_click(self, event):
+        if event.widget == self.active_tab:
             return
-        self.tabs.remove(event.widget)
-        self.tabs.insert(0, event.widget)
-        self.update()
 
+        self.active_tab.config(fg=FOREGROUND_P)
+        self.active_tab = event.widget
+        self.active_tab.config(fg=FOREGROUND_A)
         self.app.display(event.widget.cget("text")[2:])
+

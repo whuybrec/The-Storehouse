@@ -1,20 +1,25 @@
 from .filebrowser import FileBrowser
 from .sidebar import SideBar
+from ..window import Window
 
 
-class Explorer:
+class Explorer(Window):
     def __init__(self, root):
-        self.__file_browser__ = FileBrowser(root)
-        self.__sidebar__ = SideBar(root)
+        super().__init__(root)
+
+        self.__sidebar__ = SideBar(self.frame)
+        self.__file_browser__ = FileBrowser(self.frame)
 
     def update(self):
+        self.__sidebar__.update()
         self.__file_browser__.update()
-        #self.__sidebar__.update()
 
     def show(self):
-        #self.__file_browser__.show()
+        super().show()
         self.__sidebar__.show()
+        self.__file_browser__.show()
 
     def on_hide(self):
-        self.__file_browser__.on_hide()
+        super().on_hide()
         self.__sidebar__.on_hide()
+        self.__file_browser__.on_hide()

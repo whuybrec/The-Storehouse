@@ -15,13 +15,15 @@ class Application:
         self.root.update()
 
         self.menu = Menu(self)
+        self.menu.show()
+
         self.window_manager = WindowManager(self.root)
+        self.window_manager.show("Start")
 
     def update(self):
         self.root.update()
         self.root.update_idletasks()
 
-        self.menu.update()
         self.window_manager.update()
 
     def display(self, content):

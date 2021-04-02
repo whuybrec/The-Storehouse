@@ -1,4 +1,5 @@
 from .explorer_window import Explorer
+from .start_window import Start
 
 
 class WindowManager:
@@ -6,16 +7,18 @@ class WindowManager:
         self.root = root
 
         self.__windows__ = {
+            "Start": Start(self.root),
             "Explorer": Explorer(self.root)
         }
 
-        self.__active_window__ = self.__windows__["Explorer"]
-        self.__active_window__.show()
+        self.__active_window__ = None
 
     def show(self, window):
-        pass
-        # self.__active_window__.on_hide()
-        # self.__windows__[window].show()
+        if self.__active_window__ is not None:
+            self.__active_window__.on_hide()
+
+        self.__active_window__ = self.__windows__[window]
+        self.__active_window__.show()
 
     def update(self):
         self.__active_window__.update()

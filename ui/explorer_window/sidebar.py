@@ -50,7 +50,7 @@ class SideBar:
                 font=self.font_drives,
                 text=name,
             )
-            btn.bind_all("<Button-1>", self.on_drive_click)
+            btn.bind("<Button-1>", self.on_drive_click)
             self.drives[name] = {"Drive": btn, "Container": DriveContainer(self.frame, path), "Show": True}
 
     def update(self):
@@ -68,12 +68,12 @@ class SideBar:
             (drive_btn, container, show) = (dct["Drive"], dct["Container"], dct["Show"])
             drive_btn.pack_forget()
             drive_btn.pack(fill=X)
-            container.hide()
             if show:
                 container.show()
 
     def on_hide(self):
-        pass
+        self.frame.pack_forget()
+        self.hide_drives()
 
     def add_drive(self):
         print("ADD DRIVE")
@@ -85,4 +85,12 @@ class SideBar:
             obj["Show"] = False
         else:
             obj["Show"] = True
+
+        self.hide_drives()
         self.show()
+
+    def hide_drives(self):
+        for (path, dct) in self.drives.items():
+            (drive_btn, container, show) = (dct["Drive"], dct["Container"], dct["Show"])
+            drive_btn.pack_forget()
+            container.hide()

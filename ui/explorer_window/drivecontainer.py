@@ -49,6 +49,9 @@ class DriveContainer:
             self.__folders_btn__[folder].pack(fill=X)
 
     def hide(self):
+        for folder_btn in self.__folders_btn__.values():
+            folder_btn.pack_forget()
+
         self.frame.pack_forget()
 
     def get_height(self):
