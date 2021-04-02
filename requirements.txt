@@ -1,0 +1,2 @@
+pywin32~=300
+aiohttp~=3.7.4.post0
