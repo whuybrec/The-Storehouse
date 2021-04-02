@@ -9,10 +9,10 @@ class Explorer:
 
     def update(self):
         self.__file_browser__.update()
-        self.__sidebar__.update()
+        #self.__sidebar__.update()
 
     def show(self):
-        self.__file_browser__.show()
+        #self.__file_browser__.show()
         self.__sidebar__.show()
 
     def on_hide(self):

@@ -10,6 +10,7 @@ class Application:
         self.root.title("The Storehouse")
         self.root.configure(bg='#000000')
         self.root.geometry('1280x720')
+        self.root.resizable(False, False)
         self.root.focus_force()
         self.root.update()
 

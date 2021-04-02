@@ -13,49 +13,76 @@ class SideBar:
         self.root = root
         self.drives = dict()
 
-        print(win32api.GetLogicalDriveStrings())
-        print(win32api.GetVolumeInformation("V:\\"))
-
         self.font_files = Font(family="Segoe UI Light", size=18, weight="normal")
         self.font_drives = Font(family="Google Sans", size=18, weight="normal")
 
-        self.frame = Frame(self.root, bd=0, height=670, width=340, bg=BACKGROUND)
+        self.frame = Frame(self.root, bd=0, bg=BACKGROUND, height=670, width=340)
 
         self.add_drive_btn = Button(
             master=self.frame,
             bg=BACKGROUND_DRIVES,
             fg=FOREGROUND_DRIVES,
             activebackground=BACKGROUND_DRIVES,
+            activeforeground=FOREGROUND_DRIVES,
             bd=0,
             command=self.add_drive,
             font=self.font_drives,
             text="+"
         )
 
-        self.drives["V:\\"] = DriveContainer(self.frame, "V:\\")
+        for path in win32api.GetLogicalDriveStrings().split("\x00"):
+            if path == '':
+                continue
+
+            try:
+                name = win32api.GetVolumeInformation(path)[0]
+            except Exception as e:
+                print(e)
+                name = path
+
+            btn = Button(
+                master=self.frame,
+                bg=BACKGROUND_DRIVES,
+                fg=FOREGROUND_DRIVES,
+                activebackground=BACKGROUND_DRIVES,
+                activeforeground=FOREGROUND_DRIVES,
+                bd=0,
+                font=self.font_drives,
+                text=name,
+            )
+            btn.bind_all("<Button-1>", self.on_drive_click)
+            self.drives[name] = {"Drive": btn, "Container": DriveContainer(self.frame, path), "Show": True}
 
     def update(self):
         pass
 
     def show(self):
-        self.frame.place(x=0, y=50)
+        self.frame.pack(side=LEFT, fill=BOTH)
+        self.frame.pack_propagate(0)
         self.frame.update()
 
-        print(self.frame.winfo_height())
-        self.add_drive_btn.place(
-            anchor=SW,
-            x=0,
-            y=self.frame.winfo_height(),
-            width=340,
-            height=50
-        )
+        self.add_drive_btn.pack(side=BOTTOM, fill=X)
         self.add_drive_btn.update()
 
-        # for drive in win32api.GetLogicalDriveStrings():
-        self.drives["V:\\"].show(0, 0)
+        for (path, dct) in self.drives.items():
+            (drive_btn, container, show) = (dct["Drive"], dct["Container"], dct["Show"])
+            drive_btn.pack_forget()
+            drive_btn.pack(fill=X)
+            container.hide()
+            if show:
+                container.show()
 
     def on_hide(self):
         pass
 
     def add_drive(self):
         print("ADD DRIVE")
+
+    def on_drive_click(self, event):
+        name = event.widget.cget("text")
+        obj = self.drives[name]
+        if obj["Show"]:
+            obj["Show"] = False
+        else:
+            obj["Show"] = True
+        self.show()

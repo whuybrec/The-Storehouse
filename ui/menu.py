@@ -13,7 +13,7 @@ class Menu:
         self.app = application
         self.root = application.root
         self.tabs = []
-        self.frame = LabelFrame(self.root, bd=0, height=50, width=1280, bg=BACKGROUND).place(x=0, y=0)
+        self.frame = LabelFrame(self.root, bd=0, height=50, width=1280, bg=BACKGROUND).pack(side=TOP)
 
         self.font = Font(family="Google Sans", size=25, weight="normal")
 

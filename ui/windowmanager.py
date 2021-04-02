@@ -13,8 +13,9 @@ class WindowManager:
         self.__active_window__.show()
 
     def show(self, window):
-        self.__active_window__.on_hide()
-        self.__windows__[window].show()
+        pass
+        # self.__active_window__.on_hide()
+        # self.__windows__[window].show()
 
     def update(self):
         self.__active_window__.update()
