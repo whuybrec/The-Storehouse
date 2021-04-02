@@ -4,6 +4,9 @@ from ..window import Window
 
 
 class Explorer(Window):
+    """
+    Explorer window to navigate through drives, files and folders.
+    """
     def __init__(self, root):
         super().__init__(root)
 

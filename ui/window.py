@@ -2,6 +2,9 @@ from tkinter import Frame, TOP
 
 
 class Window:
+    """
+    Abstract Window class
+    """
     def __init__(self, root):
         self.root = root
         self.frame = Frame(master=self.root, bd=0, height=670, width=1280, bg="#222222")

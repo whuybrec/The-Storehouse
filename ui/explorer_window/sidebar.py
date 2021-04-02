@@ -9,6 +9,9 @@ FOREGROUND_DRIVES = "#FFFFFF"
 
 
 class SideBar:
+    """
+    Represents the sidebar that contains drives and root folders.
+    """
     def __init__(self, root: Widget):
         self.root = root
         self.drives = dict()

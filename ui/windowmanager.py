@@ -1,8 +1,12 @@
+from util import debug
 from .explorer_window import Explorer
 from .start_window import Start
 
 
 class WindowManager:
+    """
+    Manages transitions to other windows
+    """
     def __init__(self, root):
         self.root = root
 
@@ -14,6 +18,7 @@ class WindowManager:
         self.__active_window__ = None
 
     def show(self, window):
+        debug(f"Show '{window}' window")
         if self.__active_window__ is not None:
             self.__active_window__.on_hide()
 

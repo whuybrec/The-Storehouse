@@ -4,6 +4,9 @@ from util import debug, info
 
 
 class Application:
+    """
+    NAS GUI Application aka "The Storehouse"
+    """
 
     def __init__(self):
         self.root = Tk()
@@ -26,8 +29,7 @@ class Application:
 
         self.window_manager.update()
 
-    def display(self, content):
-        debug(f"Display: {content} window")
+    def show(self, content):
         self.window_manager.show(content)
 
 

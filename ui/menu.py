@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter.font import Font
 
-TABS = ["/ Start", "/ Explorer"] #, "/ Backup", "/ Torrent"]
+from util import debug, info
+
+TABS = ["/ Start", "/ Explorer"]  #, "/ Backup", "/ Torrent"]
 
 BACKGROUND = "#000000"
 FOREGROUND_A = "#FFFFFF"
@@ -9,6 +11,10 @@ FOREGROUND_P = "#7F7F7F"
 
 
 class Menu:
+    """
+    Menu bar to navigate to other windows
+    """
+
     def __init__(self, application):
         self.app = application
         self.tabs = []
@@ -54,11 +60,12 @@ class Menu:
                 lbl.pack(side=LEFT)
 
     def on_menu_click(self, event):
+        debug(f"Clicked widget '{event.widget.cget('text')}'")
         if event.widget == self.active_tab:
             return
 
         self.active_tab.config(fg=FOREGROUND_P)
         self.active_tab = event.widget
         self.active_tab.config(fg=FOREGROUND_A)
-        self.app.display(event.widget.cget("text")[2:])
+        self.app.show(event.widget.cget("text")[2:])
 

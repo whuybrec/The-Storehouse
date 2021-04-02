@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter.font import Font
-import win32api
 import os
 
 BACKGROUND = "#181E26"
@@ -9,6 +8,9 @@ FOREGROUND_DRIVES = "#FFFFFF"
 
 
 class DriveContainer:
+    """
+    A container to hold root folders of a drive.
+    """
     def __init__(self, root, path):
         self.path = path
 
