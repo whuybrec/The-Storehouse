@@ -13,7 +13,7 @@ class Window:
         self.frame.pack(side=TOP)
         self.frame.pack_propagate(0)
 
-    def on_hide(self):
+    def hide(self):
         self.frame.pack_forget()
 
     def update(self):

@@ -20,7 +20,7 @@ class WindowManager:
     def show(self, window):
         debug(f"Show '{window}' window")
         if self.__active_window__ is not None:
-            self.__active_window__.on_hide()
+            self.__active_window__.hide()
 
         self.__active_window__ = self.__windows__[window]
         self.__active_window__.show()

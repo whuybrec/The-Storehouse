@@ -14,5 +14,5 @@ class FileBrowser:
     def show(self):
         pass
 
-    def on_hide(self):
+    def hide(self):
         pass

@@ -22,7 +22,7 @@ class Explorer(Window):
         self.__sidebar__.show()
         self.__file_browser__.show()
 
-    def on_hide(self):
-        super().on_hide()
-        self.__sidebar__.on_hide()
-        self.__file_browser__.on_hide()
+    def hide(self):
+        super().hide()
+        self.__sidebar__.hide()
+        self.__file_browser__.hide()
