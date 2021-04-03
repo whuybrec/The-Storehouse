@@ -9,7 +9,7 @@ FOREGROUND_DRIVES = "#FFFFFF"
 
 class DriveHolder:
     """
-    A container to hold a drive with the drives root folders.
+    A container to hold a drive with the drive's root folders.
     """
     def __init__(self, root, sidebar, name, folders):
         self.sidebar = sidebar

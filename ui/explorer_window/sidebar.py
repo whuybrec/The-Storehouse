@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 from tkinter.font import Font
 import win32api
 import os
@@ -12,6 +13,9 @@ FOREGROUND_DRIVES = "#FFFFFF"
 FILE = "explorer.json"
 DIRECTORY = "bin"
 
+# TODO:
+#   - add option to scroll
+
 
 class SideBar:
     """
@@ -22,13 +26,8 @@ class SideBar:
         self.drives = []
         self.names_dict = dict()
 
-        self.height = 0
-        self.scroll_y = 0
-
         self.font_drives = Font(family="Google Sans", size=14, weight="normal")
-
         self.frame = Frame(self.root, bd=0, bg=BACKGROUND)
-
         self.add_drive_btn = Button(
             master=self.frame,
             bg=BACKGROUND_DRIVES,
@@ -36,21 +35,14 @@ class SideBar:
             activebackground=BACKGROUND_DRIVES,
             activeforeground=FOREGROUND_DRIVES,
             bd=0,
-            command=self.add_drive,
+            command=self.select_drive,
             font=self.font_drives,
             text="+"
         )
 
         data = self.read_()
         for path in data["drives"]:
-            try:
-                name = win32api.GetVolumeInformation(path)[0]
-            except Exception as e:
-                print(e)
-                name = path
-            folders = [f for f in os.listdir(path) if not f.startswith((".", "$"))]
-            self.names_dict[name] = path
-            self.drives.append(DriveHolder(self.frame, self, name, folders))
+            self.add_drive(path)
 
     def update(self):
         self.frame.update()
@@ -70,21 +62,23 @@ class SideBar:
             drive.hide()
         self.add_drive_btn.pack_forget()
 
-    def add_drive(self):
-        path = "Z:\\"
-        try:
+    def select_drive(self):
+        path = filedialog.askdirectory(initialdir="/", title="Select a Directory")
+        self.add_drive(path)
+
+        self.hide()
+        self.show()
+
+        self.write_()
+
+    def add_drive(self, path):
+        if path.endswith("/"):
             name = win32api.GetVolumeInformation(path)[0]
-        except Exception as e:
-            print(e)
-            name = path
+        else:
+            name = path.split("/")[-1]
         folders = [f for f in os.listdir(path) if not f.startswith((".", "$"))]
         self.names_dict[name] = path
-        drive_holder = DriveHolder(self.frame, self, name, folders)
-        self.drives.append(drive_holder)
-
-        self.add_drive_btn.pack_forget()
-        drive_holder.show()
-        self.add_drive_btn.pack(side=TOP, fill=X)
+        self.drives.append(DriveHolder(self.frame, self, name, folders))
 
     # def scroll(self, event):
     #     self.height = self.frame.winfo_height()
@@ -109,7 +103,7 @@ class SideBar:
     def write_(self):
         data = dict()
         data["drives"] = []
-        for path in self.names_dict.keys():
+        for path in self.names_dict.values():
             data["drives"].append(path)
 
         path = os.path.join(os.getcwd(), DIRECTORY, FILE)
