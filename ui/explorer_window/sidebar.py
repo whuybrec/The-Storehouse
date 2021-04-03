@@ -21,8 +21,9 @@ class SideBar:
     """
     Represents the sidebar that contains drives and root folders.
     """
-    def __init__(self, root: Widget):
+    def __init__(self, root: Widget, explorer):
         self.root = root
+        self.explorer = explorer
         self.drives = []
         self.names_dict = dict()
 
@@ -79,6 +80,10 @@ class SideBar:
         folders = [f for f in os.listdir(path) if not f.startswith((".", "$"))]
         self.names_dict[name] = path
         self.drives.append(DriveHolder(self.frame, self, name, folders))
+
+    def browse_folder(self, drive_name, folder):
+        path = self.names_dict[drive_name] + "/" + folder
+        self.explorer.browse(path)
 
     # def scroll(self, event):
     #     self.height = self.frame.winfo_height()

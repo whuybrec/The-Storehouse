@@ -1,3 +1,4 @@
+from util import debug
 from .filebrowser import FileBrowser
 from .sidebar import SideBar
 from ..window import Window
@@ -9,11 +10,11 @@ class Explorer(Window):
     """
     def __init__(self, root):
         super().__init__(root)
-
-        self.__sidebar__ = SideBar(self.frame)
+        self.__sidebar__ = SideBar(self.frame, self)
         self.__file_browser__ = FileBrowser(self.frame)
 
     def update(self):
+        super().update()
         self.__sidebar__.update()
         self.__file_browser__.update()
 
@@ -26,3 +27,7 @@ class Explorer(Window):
         super().hide()
         self.__sidebar__.hide()
         self.__file_browser__.hide()
+
+    def browse(self, path):
+        debug(f"Browse folder: {path}")
+        self.__file_browser__.browse(path)

@@ -42,12 +42,12 @@ class DriveHolder:
                 activebackground=BACKGROUND,
                 activeforeground=FOREGROUND_DRIVES,
                 bd=0,
-                command=lambda event: self.browse_folder(event),
                 font=self.font_files,
                 text=folder,
                 anchor=W,
                 padx=25
             )
+            btn.bind("<Button-1>", self.browse_folder)
             self.folders.append(btn)
 
     def show(self):
@@ -86,3 +86,4 @@ class DriveHolder:
 
     def browse_folder(self, event):
         debug(f"Browse to folder '{event.widget.cget('text')}' of drive '{self.name}'")
+        self.sidebar.browse_folder(self.name, event.widget.cget('text'))

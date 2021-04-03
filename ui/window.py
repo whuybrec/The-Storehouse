@@ -1,13 +1,16 @@
 from tkinter import Frame, TOP
 
 
+BACKGROUND = "#222222"
+
+
 class Window:
     """
     Abstract Window class
     """
     def __init__(self, root):
         self.root = root
-        self.frame = Frame(master=self.root, bd=0, height=670, width=1280, bg="#222222")
+        self.frame = Frame(master=self.root, bd=0, height=670, width=1280, bg=BACKGROUND)
 
     def show(self):
         self.frame.pack(side=TOP)
@@ -17,4 +20,4 @@ class Window:
         self.frame.pack_forget()
 
     def update(self):
-        pass
+        self.frame.update()

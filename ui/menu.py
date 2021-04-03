@@ -25,7 +25,6 @@ class Menu:
         self.lbl_app_name = Label(
             self.frame,
             text="The Storehouse",
-            padx=10,
             bg=BACKGROUND,
             fg=FOREGROUND_A,
             font=self.font,
@@ -37,7 +36,6 @@ class Menu:
                 text=tab,
                 bg=BACKGROUND,
                 font=self.font,
-                padx=5
             )
             lbl.bind("<Button-1>", self.on_menu_click)
             self.tabs.append(lbl)
@@ -48,16 +46,15 @@ class Menu:
         self.frame.pack(side=TOP)
         self.frame.pack_propagate(0)
 
-        self.lbl_app_name.pack(side=RIGHT)
+        self.lbl_app_name.pack(side=RIGHT, padx=(0, 10))
 
         for i in range(len(self.tabs)):
             lbl = self.tabs[i]
             if i == 0:
                 lbl.config(fg=FOREGROUND_A)
-                lbl.pack(side=LEFT, padx=(10,0))
             else:
                 lbl.config(fg=FOREGROUND_P)
-                lbl.pack(side=LEFT)
+            lbl.pack(side=LEFT, padx=(10, 0))
 
     def on_menu_click(self, event):
         debug(f"Clicked widget '{event.widget.cget('text')}'")
