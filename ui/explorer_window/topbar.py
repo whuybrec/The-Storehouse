@@ -15,7 +15,7 @@ class TopBar:
         self.root = root
         self.path = ""
 
-        self.font = Font(family="Google Sans", size=16, weight="normal")
+        self.font = Font(family="Google Sans", size=18, weight="normal")
         self.frame = Frame(self.root, bd=0, bg=BACKGROUND_1)
 
         self.path_lbls = []
@@ -26,7 +26,7 @@ class TopBar:
     def show(self):
         self.frame.pack(side=TOP, fill=X)
         for lbl in self.path_lbls:
-            lbl.pack(side=LEFT)
+            lbl.pack(side=LEFT, padx=(5, 0))
 
     def hide(self):
         self.frame.pack_forget()

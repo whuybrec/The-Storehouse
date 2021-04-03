@@ -12,7 +12,7 @@ FOREGROUND_P = "#7F7F7F"
 
 class Menu:
     """
-    Menu bar to navigate to other windows
+    Menu bar to navigate to other windows.
     """
 
     def __init__(self, application):

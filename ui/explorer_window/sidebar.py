@@ -85,13 +85,6 @@ class SideBar:
         path = self.names_dict[drive_name] + "/" + folder
         self.explorer.browse(path)
 
-    # def scroll(self, event):
-    #     self.height = self.frame.winfo_height()
-    #     scroll_y = self.scroll_y + event.delta
-    #     if 0 > scroll_y > 670-self.height:
-    #         self.scroll_y = scroll_y
-    #         self.frame.place(x=0, y=self.scroll_y)
-
     @staticmethod
     def read_():
         parent_dir = os.path.join(os.getcwd(), DIRECTORY)
