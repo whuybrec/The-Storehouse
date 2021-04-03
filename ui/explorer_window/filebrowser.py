@@ -41,6 +41,8 @@ class FileBrowser:
         self.topbar.hide()
         for folder in self.folders:
             folder.hide()
+        self.height = 0
+        self.scroll_y = 0
 
     def browse(self, path):
         self.topbar.set(path)

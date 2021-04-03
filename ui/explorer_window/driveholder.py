@@ -45,7 +45,7 @@ class DriveHolder:
                 font=self.font_files,
                 text=folder,
                 anchor=W,
-                padx=25
+                padx=25,
             )
             btn.bind("<Button-1>", self.browse_folder)
             self.folders.append(btn)
@@ -87,3 +87,16 @@ class DriveHolder:
     def browse_folder(self, event):
         debug(f"Browse to folder '{event.widget.cget('text')}' of drive '{self.name}'")
         self.sidebar.browse_folder(self.name, event.widget.cget('text'))
+
+    def bind(self, button, call):
+        self.container.bind(button, call)
+        self.drive_btn.bind(button, call)
+        self.frame_folders.bind(button, call)
+        for folder in self.folders:
+            folder.bind(button, call)
+
+    def get_height(self):
+        if self.visable:
+            return 36 + len(self.folders)*33
+        else:
+            return 36
