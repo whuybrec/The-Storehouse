@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter.font import Font
+
 import win32api
 import os
 import json
@@ -45,9 +46,9 @@ class SideBar:
         self.add_drive_btn.bind("<MouseWheel>", self.scroll)
 
         data = self.read_()
-        for path in data["drives"]:
-            self.add_drive(path)
-
+        if data is not None:
+            for path in data["drives"].keys():
+                self.add_drive(path)
         self.update()
 
     def update(self):
@@ -128,14 +129,16 @@ class SideBar:
                 data = json.load(f)
             return data
         except FileNotFoundError:
-            return {"drives": []}
+            return None
 
     def write_(self):
         data = dict()
-        data["drives"] = []
-        for path in self.names_dict.values():
-            data["drives"].append(path)
+        drives = dict()
 
+        for drive in self.drives:
+            drives[self.names_dict[drive.name]] = drive.as_dict()
+
+        data["drives"] = drives
         path = os.path.join(os.getcwd(), DIRECTORY, FILE)
         with open(path, "w") as f:
             json.dump(data, f)
