@@ -11,13 +11,15 @@ class TopBar:
     """
     Represents the topbar that contains current path and back/forward buttons
     """
-    def __init__(self, root):
+
+    def __init__(self, filebrowser, root):
+        self.filebrowser = filebrowser
         self.root = root
-        self.path = ""
 
         self.font = Font(family="Google Sans", size=18, weight="normal")
         self.frame = Frame(self.root, bd=0, bg=BACKGROUND_1)
 
+        self.path = []
         self.path_lbls = []
 
     def update(self):
@@ -32,11 +34,15 @@ class TopBar:
         self.frame.pack_forget()
 
     def on_path_click(self, event):
-        pass
+        length = self.path_lbls.index(event.widget) + 1
+        path = "/".join(self.path[:length])
+        self.filebrowser.browse(path)
 
     def set(self, path):
         for lbl in self.path_lbls:
             lbl.destroy()
+
+        self.path = []
         self.path_lbls = []
         for folder in path.split("/"):
             if folder == "":
@@ -51,4 +57,5 @@ class TopBar:
             )
             lbl.bind("<Button-1>", self.on_path_click)
             self.path_lbls.append(lbl)
+            self.path.append(folder)
         self.show()

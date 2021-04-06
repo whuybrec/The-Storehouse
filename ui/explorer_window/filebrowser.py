@@ -9,9 +9,13 @@ FOREGROUND = "#FFFFFF"
 
 
 class FileBrowser:
+    """
+    A file browser class to navigate through folders and open files.
+    """
+
     def __init__(self, root):
         self.frame = Frame(master=root, bd=0, bg=BACKGROUND_1, width=940, height=670)
-        self.topbar = TopBar(self.frame)
+        self.topbar = TopBar(self, self.frame)
 
         self.frame_folders = Frame(master=self.frame, bd=0, bg=BACKGROUND_1)
         self.scrollable_frame = Frame(master=self.frame_folders, bd=0, bg=BACKGROUND_1)
@@ -54,13 +58,19 @@ class FileBrowser:
         folders = os.listdir(path)
         for i in range(len(folders)):
             if i % 2 == 0:
-                fh = FileHolder(self.scrollable_frame, (path + "/" + folders[i]), BACKGROUND_2)
+                fh = FileHolder(self, self.scrollable_frame, (path + "/" + folders[i]), BACKGROUND_2)
             else:
-                fh = FileHolder(self.scrollable_frame, (path + "/" + folders[i]), BACKGROUND_1)
+                fh = FileHolder(self, self.scrollable_frame, (path + "/" + folders[i]), BACKGROUND_1)
             self.folders.append(fh)
             fh.bind("<MouseWheel>", self.scroll)
             self.height += 35
         self.show()
+
+    def open_(self, path):
+        if os.path.isfile(path):
+            os.startfile(path)
+        else:
+            self.browse(path)
 
     def scroll(self, event):
         if self.height < 670:
