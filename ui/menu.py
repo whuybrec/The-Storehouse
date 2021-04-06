@@ -3,7 +3,7 @@ from tkinter.font import Font
 
 from util import debug, info
 
-TABS = ["/ Start", "/ Explorer"]  #, "/ Backup", "/ Torrent"]
+TABS = ["/ Start", "/ Explorer"]  # , "/ Backup", "/ Torrent"]
 
 BACKGROUND = "#000000"
 FOREGROUND_A = "#FFFFFF"
@@ -65,4 +65,3 @@ class Menu:
         self.active_tab = event.widget
         self.active_tab.config(fg=FOREGROUND_A)
         self.app.show(event.widget.cget("text")[2:])
-

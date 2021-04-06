@@ -1,3 +1,4 @@
+import time
 from tkinter import *
 from ui import Menu, WindowManager
 from util import debug, info
@@ -23,11 +24,25 @@ class Application:
         self.window_manager = WindowManager(self.root)
         self.window_manager.show("Start")
 
+        self.fps_counter = Label(master=self.root, bg='#000000', fg='#FFFFFF')
+        self.fps_counter.place(anchor=SE, x=1280, y=720)
+
+        self.time_ = time.time()
+        self.frames = 0
+
     def update(self):
         self.root.update()
         self.root.update_idletasks()
 
         self.window_manager.update()
+
+        self.frames += 1
+        time_b = time.time()
+        diff = time_b - self.time_
+        if diff > 1:
+            self.fps_counter.config(text=str(self.frames) + " fps")
+            self.frames = 0
+            self.time_ = time.time()
 
     def show(self, content):
         self.window_manager.show(content)
