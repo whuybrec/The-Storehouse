@@ -1,2 +1,5 @@
 pywin32~=300
 aiohttp~=3.7.4.post0
+Pillow~=8.2.0
+pypiwin32~=223
+win32gui~=221.6

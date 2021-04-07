@@ -1,6 +1,6 @@
 import time
 from tkinter import *
-from ui import Menu, WindowManager
+from app import Menu, WindowManager
 from util import debug, info
 
 

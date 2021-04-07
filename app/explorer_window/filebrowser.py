@@ -22,6 +22,7 @@ class FileBrowser:
         self.folders = []
         self.height = 670
         self.scroll_y = 0
+        self.icons = dict()
 
     def update(self):
         self.frame.update()
