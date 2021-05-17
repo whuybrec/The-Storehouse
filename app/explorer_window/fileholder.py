@@ -76,7 +76,6 @@ class FileHolder:
         else:
             ext = self.path.split(".")[-1]
 
-        print(len(self.filebrowser.icons.keys()))
         if ext in self.filebrowser.icons.keys():
             image = self.filebrowser.icons[ext]
         else:
@@ -94,10 +93,10 @@ class FileHolder:
 
     def update(self):
         self.frame.update()
-        self.file_lbl.update()
-        self.modified_lbl.update()
-        self.size_lbl.update()
         self.image_lbl.update()
+        self.file_lbl.update()
+        self.size_lbl.update()
+        self.modified_lbl.update()
 
     def show(self):
         self.frame.pack(side=TOP, fill=X)
@@ -108,11 +107,11 @@ class FileHolder:
         self.modified_lbl.place(relx=0.6, rely=0)
 
     def hide(self):
-        self.frame.destroy()
-        self.file_lbl.destroy()
-        self.modified_lbl.destroy()
-        self.size_lbl.destroy()
-        self.image_lbl.destroy()
+        self.modified_lbl.forget()
+        self.size_lbl.forget()
+        self.image_lbl.forget()
+        self.file_lbl.forget()
+        self.frame.forget()
 
     def on_item_click(self, event=None):
         debug(f"Clicked file '{self.path}'")

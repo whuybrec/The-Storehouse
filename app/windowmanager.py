@@ -15,15 +15,15 @@ class WindowManager:
             "Explorer": Explorer(self.root)
         }
 
-        self.__active_window__ = None
+        self.active_window = None
 
     def show(self, window):
         debug(f"Show '{window}' window")
-        if self.__active_window__ is not None:
-            self.__active_window__.hide()
+        if self.active_window is not None:
+            self.active_window.hide()
 
-        self.__active_window__ = self.__windows__[window]
-        self.__active_window__.show()
+        self.active_window = self.__windows__[window]
+        self.active_window.show()
 
     def update(self):
-        self.__active_window__.update()
+        self.active_window.update()

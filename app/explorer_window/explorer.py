@@ -1,4 +1,5 @@
 from util import debug
+from tkinter import *
 from .filebrowser import FileBrowser
 from .sidebar import SideBar
 from ..window import Window
@@ -25,8 +26,7 @@ class Explorer(Window):
 
     def hide(self):
         super().hide()
-        self.__sidebar__.hide()
-        self.__file_browser__.hide()
+        # self.__file_browser__.on_hide()
 
     def browse(self, path):
         debug(f"Browse folder: {path}")

@@ -9,11 +9,11 @@ FOREGROUND = "#FFFFFF"
 
 class TopBar:
     """
-    Represents the topbar that contains current path and back/forward buttons
+    Represents the topBar that contains current path and back/forward buttons
     """
 
     def __init__(self, filebrowser, root):
-        self.filebrowser = filebrowser
+        self.fileBrowser = filebrowser
         self.root = root
 
         self.font = Font(family="Google Sans", size=18, weight="normal")
@@ -30,13 +30,10 @@ class TopBar:
         for lbl in self.path_lbls:
             lbl.pack(side=LEFT, padx=(5, 0))
 
-    def hide(self):
-        self.frame.pack_forget()
-
     def on_path_click(self, event):
         length = self.path_lbls.index(event.widget) + 1
         path = "/".join(self.path[:length])
-        self.filebrowser.browse(path)
+        self.fileBrowser.browse(path)
 
     def set(self, path):
         for lbl in self.path_lbls:
